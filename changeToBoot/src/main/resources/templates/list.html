@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" th:with="lang=${#locale.language}" th:lang="${lang}">
+
+<body>
+
+<div>
+    <div>
+        <div>
+            <h1>CRUD App</h1>
+            <p>User list</p>
+        </div>
+    </div>
+</div>
+
+<div>
+    <div>
+        <div><a th:href="${(#mvc.url('UC#addUserForm')).build()}">Create new user</a></div>
+        <br>
+    </div>
+</div>
+
+<div th:remove="${users.size() == 0} ? all">
+    <div style="display: flex; gap: 30px">
+        <div>Name</div>
+        <div>Last name</div>
+        <div>Age</div>
+        <div>E-mail</div>
+        <div>Actions</div>
+    </div>
+
+    <div th:each="user : ${users}" style="display: flex; gap: 30px">
+        <div th:text="${user.getFirstName()}"/>
+        <br>
+        <div th:text="${user.getLast_name()}"/>
+        <br>
+        <div th:text="${user.getAge()}"/>
+        <br>
+        <div th:text="${user.getEmail()}"/>
+        <br>
+        <div>
+            <a th:href="@{/edit(id=${user.getId()})}">Edit</a>
+            <a th:href="@{/delete(id=${user.getId()})}">Delete</a>
+        </div>
+    </div>
+</div>
+
+<div th:remove="${users.size() != 0} ? all">
+    <div>
+        <div>Users not found. Please insert.</div>
+    </div>
+</div>
+
+<div aria-live="polite" aria-atomic="true" style="position: relative; min-height: 200px;">
+    <div class="toast" style="position: fixed; top: 10rem; right: 10rem;" data-delay="3000">
+        <div class="toast-header">
+            <strong class="mr-auto">ITS Info</strong>
+            <small>Just now</small>
+            <button type="button" class="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        <div class="toast-body" th:text="${flashMessage}"></div>
+    </div>
+</div>
+
+</body>
+</html>
