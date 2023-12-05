@@ -42,7 +42,7 @@ public class UserDaoImpl implements UserDao {
     public User deleteUser(long id) throws EntityNotFoundException {
         User user = readUser(id);
         if (null == user) {
-            throw new NullPointerException("User not found");
+            throw new EntityNotFoundException("User not found");
         }
         entityManager.remove(user);
         entityManager.flush();

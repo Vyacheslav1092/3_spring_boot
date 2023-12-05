@@ -20,7 +20,7 @@ public class UserServiceImpl implements UserService {
     public List<User> getAllUsers() {
         return userDao.getAllUsers();
     }
-
+    @Transactional
     @Override
     public void createOrUpdateUser(User user) {
         if (0 == user.getId()) {
@@ -43,6 +43,7 @@ public class UserServiceImpl implements UserService {
         return userDao.readUser(id);
     }
 
+    @Transactional
     @Override
     public User deleteUser(long id) {
         User user = null;
